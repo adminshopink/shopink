@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
-from odoo import api, SUPERUSER_ID
+from odoo import SUPERUSER_ID
 from . import models
 
-def post_init_hook(cr, registry):
+def post_init_hook(env):
     """
     Este método se ejecuta inmediatamente al instalar el módulo,
     ANTES de que otros procesos fiscales dependientes corran.
     Configura el país, activa VES como moneda base y prepara USD.
     """
-    # Crear el entorno (env) usando el cursor y el registro de Odoo
-    env = api.Environment(cr, SUPERUSER_ID, {})
+    # En Odoo 19, 'env' ya viene directo en los argumentos del hook.
 
     # 1. Forzar la instalación y activación del idioma Español de Venezuela
     lang_code = 'es_VE'
