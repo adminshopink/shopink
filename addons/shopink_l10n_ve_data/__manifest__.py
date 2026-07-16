@@ -10,9 +10,9 @@
         'account',
     ],
     'data': [
-        'data/account_account_data.xlsx',
-        'data/account_tax_group_data.xlsx',
-        'data/account_tax_data.xlsx',
+        'data/account_account_data.csv',
+        'data/account_tax_group_data.csv',
+        'data/account_tax_data.csv',
     ],
     'installable': True,
     'application': False,
