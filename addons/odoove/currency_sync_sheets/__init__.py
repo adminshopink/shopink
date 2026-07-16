@@ -14,7 +14,8 @@ def post_init_hook(env):
 
     if lang_ids:
         if not lang_ids.active:
-            lang_ids.toggle_active()
+            # CAMBIO AQUÍ: Se reemplaza toggle_active() por action_unarchive() para Odoo 19
+            lang_ids.action_unarchive()
     else:
         env['res.lang'].create({
             'code': lang_code,
