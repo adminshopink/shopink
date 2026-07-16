@@ -9,11 +9,7 @@
     'depends': [
         'account',
     ],
-    'data': [
-        'data/account.account.csv',
-        'data/account.tax.group.csv',
-        'data/account.tax.csv',
-    ],
+    'data': [],
     'installable': True,
     'application': False,
     'auto_install': False,
