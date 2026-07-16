@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from . import models
-from odoo import api, SUPERUSER_ID
+
+# IMPORTANTE: Exponer el hook para que el manifiesto lo pueda leer
+from .__init__ import post_init_hook
 
 def post_init_hook(env):
     """
@@ -22,5 +24,6 @@ def post_init_hook(env):
             'country_id': venezuela.id,
         })
         
+    from odoo import SUPERUSER_ID
     admin_user = env['res.users'].browse(SUPERUSER_ID)
     admin_user.write({'lang': lang_code})
