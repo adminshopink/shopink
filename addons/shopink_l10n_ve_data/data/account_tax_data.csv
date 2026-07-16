@@ -1,0 +1,10 @@
+Secuencia;Nombre del impuesto;Descripción;Tipo de impuesto;Ámbito del impuesto;Etiqueta en facturas;Activo
+1;0% EXEMPT;<div>Exento (ventas)</div>;Ventas;;Exento (ventas);VERDADERO
+1;16%;"<div data-oe-version=""2.0"">IVA (16.0%) ventas</div>";Ventas;;IVA (16.0%) ventas;VERDADERO
+1;8%;<div>IVA (8.0%) ventas</div>;Ventas;;IVA (8.0%) ventas;VERDADERO
+1;31%;"<div data-oe-version=""2.0"">IVA (31.0%) ventas</div>";Ventas;;IVA (31.0%) ventas;VERDADERO
+1;0% EXEMPT;<div>Exento (compras)</div>;Compras;;Exento (compras);VERDADERO
+1;16%;"<div data-oe-version=""2.0"">IVA (16.0%) compras</div>";Compras;;IVA (16.0%) compras;VERDADERO
+1;8%;<div>IVA (8.0%) compras</div>;Compras;;IVA (8.0%) compras;VERDADERO
+1;31%;"<div data-oe-version=""2.0"">IVA (31.0%) compras</div>";Compras;;IVA (31.0%) compras;VERDADERO
+1;IGTF 3% Percibido;"<div data-oe-version=""2.0"">IGTF 3%</div>";Ventas;;IGTF 3%;VERDADERO
