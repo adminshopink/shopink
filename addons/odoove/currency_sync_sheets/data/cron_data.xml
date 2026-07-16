@@ -8,7 +8,7 @@
             <field name="code">model.action_sync_usd_ves_sheets()</field>
             <field name="interval_number">1</field>
             <field name="interval_type">days</field>
-            <field name="limit">-1</field>
+            <field name="numbercall">-1</field>
             <field name="doall" eval="False"/>
             <field name="active" eval="True"/>
             <field name="nextcall" eval="(DateTime.now().replace(hour=10, minute=0, second=0)).strftime('%Y-%m-%d %H:%M:%S')"/>
