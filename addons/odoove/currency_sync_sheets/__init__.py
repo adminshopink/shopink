@@ -8,15 +8,33 @@ def post_init_hook(env):
     ANTES de que otros procesos fiscales dependientes corran.
     Configura el país, activa VES como moneda base y prepara USD.
     """
-    # En Odoo 19, 'env' ya viene directo en los argumentos del hook.
 
     # 1. Forzar la instalación y activación del idioma Español de Venezuela
     lang_code = 'es_VE'
+    
+    # Buscamos si el idioma existe en el sistema
     lang_ids = env['res.lang'].with_context(active_test=False).search([('code', '=', lang_code)])
 
     if lang_ids:
-        lang_ids.toggle_active()
-        env['base.language.install'].create({'lang_codes': [lang_code]}).lang_install()
+        # Lo activamos si estaba inactivo
+        if not lang_ids.active:
+            lang_ids.toggle_active()
+    else:
+        # Si no existe en el registro base, lo creamos y activamos
+        lang_ids = env['res.lang'].create({
+            'code': lang_code,
+            'name': 'Spanish (VE) / Español (VE)',
+            'direction': 'ltr',
+            'date_format': '%d/%m/%Y',
+            'time_format': '%H:%M:%S',
+            'grouping': '[3, 3, 0]',
+            'decimal_point': ',',
+            'thousands_sep': '.',
+            'active': True,
+        })
+
+    # Odoo 19: Forzar la carga de los archivos de traducción (.po) del core para es_VE
+    env['res.lang']._load_backend_translations(lang_code)
 
     # 2. Buscar país (Venezuela) y Monedas (VES y USD)
     main_company = env['res.company'].browse(1)
