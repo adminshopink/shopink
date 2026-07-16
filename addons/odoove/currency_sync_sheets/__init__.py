@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
+from odoo import api, SUPERUSER_ID
 from . import models
 
-# Exponer el hook para que el manifiesto lo pueda leer al instalarse
-from .__init__ import post_init_hook
-
-def post_init_hook(env):
+def post_init_hook(cr, registry):
     """
-    Este método se ejecuta inmediatamente al instalar el módulo, 
+    Este método se ejecuta inmediatamente al instalar el módulo,
     ANTES de que otros procesos fiscales dependientes corran.
     Configura el país, activa VES como moneda base y prepara USD.
     """
+    # Crear el entorno (env) usando el cursor y el registro de Odoo
+    env = api.Environment(cr, SUPERUSER_ID, {})
+
     # 1. Forzar la instalación y activación del idioma Español de Venezuela
     lang_code = 'es_VE'
     lang_ids = env['res.lang'].with_context(active_test=False).search([('code', '=', lang_code)])
-    
+
     if lang_ids:
         lang_ids.toggle_active()
         env['base.language.install'].create({'lang_codes': [lang_code]}).lang_install()
@@ -32,15 +33,14 @@ def post_init_hook(env):
     if ves_currency:
         if not ves_currency.active:
             ves_currency.write({'active': True})
-        
+
         # Cambiamos el país y la moneda principal de la empresa antes de la localización contable
         company_vals = {'currency_id': ves_currency.id}
         if venezuela:
             company_vals.update({'country_id': venezuela.id})
-            
+
         main_company.write(company_vals)
 
     # 5. Configurar el idioma del usuario Administrador a es_VE
-    from odoo import SUPERUSER_ID
     admin_user = env['res.users'].browse(SUPERUSER_ID)
     admin_user.write({'lang': lang_code})
