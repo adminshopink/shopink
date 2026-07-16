@@ -4,24 +4,19 @@ from . import models
 
 def post_init_hook(env):
     """
-    Este método se ejecuta inmediatamente al instalar el módulo,
-    ANTES de que otros procesos fiscales dependientes corran.
+    Este método se ejecuta inmediatamente al instalar el módulo.
     Configura el país, activa VES como moneda base y prepara USD.
     """
 
-    # 1. Forzar la instalación y activación del idioma Español de Venezuela
+    # 1. Asegurar la existencia y activación del idioma Español de Venezuela
     lang_code = 'es_VE'
-    
-    # Buscamos si el idioma existe en el sistema
     lang_ids = env['res.lang'].with_context(active_test=False).search([('code', '=', lang_code)])
 
     if lang_ids:
-        # Lo activamos si estaba inactivo
         if not lang_ids.active:
             lang_ids.toggle_active()
     else:
-        # Si no existe en el registro base, lo creamos y activamos
-        lang_ids = env['res.lang'].create({
+        env['res.lang'].create({
             'code': lang_code,
             'name': 'Spanish (VE) / Español (VE)',
             'direction': 'ltr',
@@ -33,16 +28,13 @@ def post_init_hook(env):
             'active': True,
         })
 
-    # Odoo 19: Forzar la carga de los archivos de traducción (.po) del core para es_VE
-    env['res.lang']._load_backend_translations(lang_code)
-
     # 2. Buscar país (Venezuela) y Monedas (VES y USD)
     main_company = env['res.company'].browse(1)
     venezuela = env['res.country'].search([('code', '=', 'VE')], limit=1)
     ves_currency = env['res.currency'].search([('name', '=', 'VES')], limit=1)
     usd_currency = env['res.currency'].search([('name', '=', 'USD')], limit=1)
 
-    # 3. Activar la moneda USD en el sistema (necesaria para el histórico de tasas)
+    # 3. Activar la moneda USD en el sistema
     if usd_currency and not usd_currency.active:
         usd_currency.write({'active': True})
 
@@ -51,7 +43,6 @@ def post_init_hook(env):
         if not ves_currency.active:
             ves_currency.write({'active': True})
 
-        # Cambiamos el país y la moneda principal de la empresa antes de la localización contable
         company_vals = {'currency_id': ves_currency.id}
         if venezuela:
             company_vals.update({'country_id': venezuela.id})
