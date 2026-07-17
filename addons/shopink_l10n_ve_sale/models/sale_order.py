@@ -8,8 +8,7 @@ class SaleOrder(models.Model):
         string='RIF del Cliente',
         compute='_compute_l10n_ve_customer_fiscal_data',
         store=True,
-        readonly=False,
-        help="RIF del cliente congelado para este presupuesto/pedido."
+        readonly=False
     )
     
     l10n_ve_taxpayer_type = fields.Selection([
@@ -20,7 +19,6 @@ class SaleOrder(models.Model):
 
     @api.depends('partner_id')
     def _compute_l10n_ve_customer_fiscal_data(self):
-        """ Trae de forma automática los datos fiscales del contacto seleccionado """
         for order in self:
             if order.partner_id:
                 order.l10n_ve_customer_rif = order.partner_id.l10n_ve_rif
