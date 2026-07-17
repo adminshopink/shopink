@@ -9,9 +9,11 @@
     'depends': [
         'base',
         'contacts',
-        'web_studio',  # <--- Esto fuerza la instalación técnica de Odoo Studio
+        'web_studio',
     ],
-    'data': [],
+    'data': [
+        'views/res_partner_views.xml', # <- Agregamos esta línea de forma limpia
+    ],
     'installable': True,
     'application': False,
     'auto_install': False,
