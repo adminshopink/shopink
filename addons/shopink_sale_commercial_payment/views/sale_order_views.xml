@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<data>
     <!-- Vista Formulario -->
     <record id="view_order_form_inherit_commercial_payment" model="ir.ui.view">
         <name>sale.order.form.inherit.commercial.payment</name>
@@ -37,4 +37,4 @@
             </xpath>
         </arch>
     </record>
-</odoo>
+</data>
