@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -10,17 +10,44 @@ class SaleOrder(models.Model):
         ('paid', 'Totalmente Pagado')
     ], string='Estado de Pago (Comercial)', compute='_compute_commercial_payment_state', store=True, default='unpaid')
 
-    @api.depends('invoice_ids', 'invoice_ids.state', 'invoice_ids.amount_residual')
+    @api.depends('state', 'amount_total')
     def _compute_commercial_payment_state(self):
+        """ Evalúa el estado buscando pagos que tengan la referencia de esta SO """
         for order in self:
-            if not order.invoice_ids:
+            if order.state not in ('sale', 'done'):
                 order.commercial_payment_state = 'unpaid'
                 continue
-
-            invoices = order.invoice_ids
-            if all(inv.payment_state in ('paid', 'in_payment') for inv in invoices):
+            
+            # Buscamos pagos publicados que en su referencia tengan el nombre de la orden
+            payments = self.env['account.payment'].search([
+                ('ref', 'ilike', order.name),
+                ('state', '=', 'posted')
+            ])
+            
+            total_paid = sum(pay.amount for pay in payments)
+            
+            if total_paid >= order.amount_total:
                 order.commercial_payment_state = 'paid'
-            elif any(inv.payment_state in ('paid', 'in_payment', 'partial') for inv in invoices):
+            elif total_paid > 0:
                 order.commercial_payment_state = 'partial'
             else:
                 order.commercial_payment_state = 'unpaid'
+
+    def action_register_commercial_payment(self):
+        """ Abre el asistente nativo de registro de pagos apuntando a esta orden """
+        self.ensure_one()
+        return {
+            'name': _('Registrar Pago Comercial'),
+            'res_model': 'account.payment',
+            'view_mode': 'form',
+            'views': [(str(self.env.ref('account.view_account_payment_form').id), 'form')],
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'context': {
+                'default_payment_type': 'inbound',
+                'default_partner_type': 'customer',
+                'default_partner_id': self.partner_id.id,
+                'default_amount': self.amount_total,
+                'default_ref': _('Pago Comercial - %s') % self.name,
+            },
+        }
