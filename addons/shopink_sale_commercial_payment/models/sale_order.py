@@ -12,15 +12,21 @@ class SaleOrder(models.Model):
 
     @api.depends('state', 'amount_total')
     def _compute_commercial_payment_state(self):
-        """ Evalúa el estado buscando pagos publicados que tengan la referencia de esta SO """
+        """ Evalúa el estado buscando pagos publicados usando el campo correcto 'communication' """
+        # Verificación de seguridad para evitar errores durante la instalación
+        if 'account.payment' not in self.env:
+            for order in self:
+                order.commercial_payment_state = 'unpaid'
+            return
+
         for order in self:
             if order.state not in ('sale', 'done'):
                 order.commercial_payment_state = 'unpaid'
                 continue
             
-            # Buscamos pagos publicados que en su referencia (comunicación) tengan el nombre de la orden
+            # Buscamos pagos publicados. 'communication' es el campo estándar para la referencia
             payments = self.env['account.payment'].search([
-                ('ref', 'ilike', order.name),
+                ('communication', 'ilike', order.name),
                 ('state', '=', 'posted')
             ])
             
@@ -37,14 +43,14 @@ class SaleOrder(models.Model):
         """ Abre el asistente nativo de registro de pagos apuntando a esta orden """
         self.ensure_one()
         
-        # Buscamos un diario de entrada por defecto (Efectivo o Banco) para evitar campos vacíos
+        # Buscamos un diario de entrada por defecto
         journal = self.env['account.journal'].search([('type', 'in', ('bank', 'cash'))], limit=1)
         
         return {
             'name': _('Registrar Pago Comercial'),
             'res_model': 'account.payment',
             'view_mode': 'form',
-            'views': [(str(self.env.ref('account.view_account_payment_form').id), 'form')],
+            'views': [(self.env.ref('account.view_account_payment_form').id, 'form')],
             'type': 'ir.actions.act_window',
             'target': 'new',
             'context': {
@@ -53,6 +59,6 @@ class SaleOrder(models.Model):
                 'default_partner_id': self.partner_id.id,
                 'default_amount': self.amount_total,
                 'default_journal_id': journal.id if journal else False,
-                'default_ref': _('Pago Comercial - %s') % self.name,
+                'default_communication': _('Pago Comercial - %s') % self.name,
             },
         }
