@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_partner_form_l10n_ve_shopink" model="ir.ui.view">
-        <name>res.partner.form.l10n.ve.shopink</name>
-        <model>res.partner</model>
-        <inherit_id ref="base.view_partner_form"/>
-        <arch type="xml">
-            <xpath expr="//field[@name='vat']" position="after">
-                <field name="l10n_ve_person_type" placeholder="Tipo Persona" invisible="is_company == False and parent_id != False"/>
-                <field name="l10n_ve_rif" placeholder="Ej: J-12345678-9" invisible="is_company == False and parent_id != False"/>
-                <field name="l10n_ve_taxpayer_type" invisible="is_company == False and parent_id != False"/>
-            </xpath>
-        </arch>
-    </record>
+    <data>
+        <record id="view_partner_form_l10n_ve_shopink" model="ir.ui.view">
+            <name>res.partner.form.l10n.ve.shopink</name>
+            <model>res.partner</model>
+            <inherit_id ref="base.view_partner_form"/>
+            <arch type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="l10n_ve_person_type" placeholder="Tipo Persona" invisible="is_company == False and parent_id != False"/>
+                    <field name="l10n_ve_rif" placeholder="Ej: J-12345678-9" invisible="is_company == False and parent_id != False"/>
+                    <field name="l10n_ve_taxpayer_type" invisible="is_company == False and parent_id != False"/>
+                </xpath>
+            </arch>
+        </record>
+    </data>
 </odoo>
