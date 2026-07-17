@@ -5,16 +5,31 @@ from odoo.exceptions import UserError
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
+    # Campo propio para el Número de Control del SENIAT
+    l10n_ve_control_number = fields.Char(
+        string='Número de Control', 
+        copy=False, 
+        tracking=True,
+        help="Número de control correlativo exigido por el SENIAT"
+    )
+
     def action_post(self):
-        """ Sobrescribe la validación nativa para inyectar el número de control """
+        """ 
+        Sobrescribe la validación nativa. Ejecuta primero el proceso de Odoo 
+        y solo si se publica con éxito, consume e inyecta la secuencia fiscal.
+        """
+        # 1. Ejecutamos el super de Odoo. Si hay un error contable, la transacción aborta aquí.
+        res = super(AccountMove, self).action_post()
+
+        # 2. Una vez publicado el documento de forma segura, asignamos el número de control
         for move in self:
-            # Solo aplica para facturas de clientes (out_invoice) y notas de crédito (out_refund)
-            if move.move_type in ('out_invoice', 'out_refund') and not move.payment_reference:
+            if move.move_type in ('out_invoice', 'out_refund') and not move.l10n_ve_control_number:
                 # Extrae el siguiente número consecutivo de la secuencia oficial
                 control_num = self.env['ir.sequence'].next_by_code('l10n_ve.control.number')
-                move.payment_reference = control_num
+                # Escribimos directo para evitar re-disparar métodos de cómputo en un estado 'posted'
+                move.write({'l10n_ve_control_number': control_num})
 
-        return super(AccountMove, self).action_post()
+        return res
 
     def button_draft(self):
         """
