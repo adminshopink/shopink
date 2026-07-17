@@ -1,0 +1,10 @@
+id,sequence,name,type_tax_use,invoice_label,tax_group_id:id,active
+tax_0pct_exempt_sale,1,0% EXEMPT,sale,Exento (ventas),tax_group_iva_0pct,True
+tax_16pct_sale,1,16%,sale,IVA (16.0%) ventas,tax_group_iva_16pct,True
+tax_8pct_sale,1,8%,sale,IVA (8.0%) ventas,tax_group_iva_8pct,True
+tax_31pct_sale,1,31%,sale,IVA (31.0%) ventas,tax_group_iva_31pct,True
+tax_0pct_exempt_purchase,1,0% EXEMPT,purchase,Exento (compras),tax_group_iva_0pct,True
+tax_16pct_purchase,1,16%,purchase,IVA (16.0%) compras,tax_group_iva_16pct,True
+tax_8pct_purchase,1,8%,purchase,IVA (8.0%) compras,tax_group_iva_8pct,True
+tax_31pct_purchase,1,31%,purchase,IVA (31.0%) compras,tax_group_iva_31pct,True
+tax_igtf_3pct_sale,1,IGTF 3% Percibido,sale,IGTF 3%,tax_group_igtf,True
