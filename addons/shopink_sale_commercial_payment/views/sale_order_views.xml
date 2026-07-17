@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_tree_inherit_commercial_payment" model="ir.ui.view">
+        <name>sale.order.tree.inherit.commercial.payment</name>
+        <model>sale.order</model>
+        <inherit_id ref="sale.view_order_tree"/>
+        <arch type="xml">
+            <xpath expr="//field[@name='invoice_status']" position="after">
+                <field name="commercial_payment_state" widget="badge" 
+                       decoration-success="commercial_payment_state == 'paid'" 
+                       decoration-info="commercial_payment_state == 'partial'" 
+                       decoration-warning="commercial_payment_state == 'unpaid'"/>
+            </xpath>
+        </arch>
+    </record>
+
+    <record id="view_sales_order_filter_inherit_commercial" model="ir.ui.view">
+        <name>sale.order.search.inherit.commercial</name>
+        <model>sale.order</model>
+        <inherit_id ref="sale.view_sales_order_filter"/>
+        <arch type="xml">
+            <xpath expr="//filter[@name='order_month']" position="before">
+                <filter string="Totalmente Pagadas (Comercial)" name="commercial_paid" domain="[('commercial_payment_state', '=', 'paid')]"/>
+                <separator/>
+            </xpath>
+            <xpath expr="//filter[@name='salesperson']" position="after">
+                <filter string="Estado de Pago Comercial" name="group_by_commercial_payment" context="{'group_by': 'commercial_payment_state'}"/>
+            </xpath>
+        </arch>
+    </record>
+</odoo>
