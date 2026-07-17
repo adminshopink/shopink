@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
 class L10nVeIslrConcept(models.Model):
@@ -52,36 +52,67 @@ class AccountMove(models.Model):
 
     @api.depends('invoice_line_ids.l10n_ve_islr_concept_id', 'amount_untaxed', 'l10n_ve_apply_withholding')
     def _compute_l10n_ve_islr_amounts(self):
-        # Valor estimado de la UT (Unidad Tributaria) para el cálculo del sustraendo. 
-        # NOTA: Puedes cambiar este valor fijo o mapearlo a una variable de configuración global luego.
         ut_value = 9.00  
-        
         for move in self:
             total_retained = 0.0
             if move.l10n_ve_apply_withholding and move.move_type == 'in_invoice':
                 for line in move.invoice_line_ids:
                     concept = line.l10n_ve_islr_concept_id
                     if concept:
-                        # Cálculo base: Subtotal * % de retención
                         line_retained = line.price_subtotal * (concept.withholding_percentage / 100.0)
-                        # Aplicación del Sustraendo en Bs. (Sustraendo en UT * Valor UT)
                         subtracting_bs = concept.subtracting_ut * ut_value
                         line_retained -= subtracting_bs
-                        
                         if line_retained > 0:
                             total_retained += line_retained
             move.l10n_ve_islr_amount_retained = total_retained
 
     def action_post(self):
-        """ Redefinimos la validación de la factura para que genere el asiento puente automáticamente 
-            si es una factura de cliente y tiene el checklist activo con un monto de IVA retenido. """
+        """ Interceptamos la publicación para obligar al usuario a confirmar en el wizard
+            si se trata de una factura de cliente bajo regulaciones digitales. """
+        # Si ya viene aprobado desde el wizard de confirmación, salta el popup
+        if self._context.get('skip_confirmation_wizard'):
+            res = super(AccountMove, self).action_post()
+            # Se ejecuta tu lógica nativa original del asiento puente
+            for move in self:
+                if move.move_type == 'out_invoice' and move.l10n_ve_apply_withholding:
+                    if move.l10n_ve_iva_amount_retained > 0.0:
+                        move._create_l10n_ve_iva_bridge_entry()
+            return res
+
+        # Si el usuario hace click directo en "Confirmar" desde el formulario
+        for move in self:
+            if move.move_type == 'out_invoice' and move.state == 'draft':
+                return {
+                    'name': _('Confirmación Obligatoria de Emisión Digital'),
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'account.move.confirmation.wizard',
+                    'view_mode': 'form',
+                    'view_id': self.env.ref('shopink_l10n_ve_withholding.view_account_move_confirmation_wizard_form').id,
+                    'target': 'new',
+                    'context': {
+                        'default_move_id': move.id,
+                    }
+                }
+
+        # Flujo por defecto si es una factura de proveedor (in_invoice) o asientos diarios normales
         res = super(AccountMove, self).action_post()
-        
         for move in self:
             if move.move_type == 'out_invoice' and move.l10n_ve_apply_withholding:
                 if move.l10n_ve_iva_amount_retained > 0.0:
                     move._create_l10n_ve_iva_bridge_entry()
         return res
+
+    def button_cancel(self):
+        """ Restricción Absoluta: Bloquea la anulación directa de facturas ya emitidas 
+            bajo regulaciones de Factura Digital (Providencia SENIAT). """
+        for move in self:
+            if move.move_type == 'out_invoice' and move.state == 'posted':
+                raise UserError(_(
+                    "Por regulaciones de Facturación Digital (Providencia SENIAT), "
+                    "las facturas emitidas no pueden ser canceladas ni modificadas. "
+                    "Cualquier ajuste posterior debe realizarse mediante Notas de Crédito o Débito."
+                ))
+        return super(AccountMove, self).button_cancel()
 
     def _create_l10n_ve_iva_bridge_entry(self):
         """ Genera el asiento contable automático en el diario puente seleccionado """
@@ -89,25 +120,20 @@ class AccountMove(models.Model):
         if not self.l10n_ve_bridge_journal_id:
             raise UserError("Por favor, seleccione el 'Diario Puente de Retención' antes de validar la factura.")
 
-        # Evitar duplicados si ya fue generado
         if self.l10n_ve_iva_bridge_move_id:
             return
 
-        # Cuentas involucradas sacadas del cliente y del diario puente
         partner_account = self.partner_id.property_account_receivable_id
         if not partner_account:
             raise UserError(f"El cliente {self.partner_id.name} no tiene una cuenta por cobrar configurada.")
 
-        # Líneas del asiento puente
         move_lines = [
-            # Línea Débito: Cuenta transitoria del Diario Puente (Entrada del dinero retenido)
             (0, 0, {
                 'name': f'Retención IVA {self.l10n_ve_iva_holding_number or ""} de Factura {self.name}',
                 'account_id': self.l10n_ve_bridge_journal_id.default_account_id.id or partner_account.id,
                 'debit': self.l10n_ve_iva_amount_retained,
                 'credit': 0.0,
             }),
-            # Línea Crédito: Cuenta por Cobrar del Cliente (Disminuye la deuda de la factura original)
             (0, 0, {
                 'name': f'Cruze Retención IVA Factura {self.name}',
                 'account_id': partner_account.id,
@@ -117,7 +143,6 @@ class AccountMove(models.Model):
             }),
         ]
 
-        # Creación del asiento puente en estado borrador y validación inmediata
         bridge_move = self.env['account.move'].create({
             'move_type': 'entry',
             'journal_id': self.l10n_ve_bridge_journal_id.id,
@@ -126,8 +151,6 @@ class AccountMove(models.Model):
             'line_ids': move_lines,
         })
         bridge_move.action_post()
-
-        # Vinculamos el asiento puente generado a la factura original
         self.write({'l10n_ve_iva_bridge_move_id': bridge_move.id})
 
 
