@@ -51,11 +51,11 @@
             </field>
         </record>
 
-        <!-- Menús -->
+        <!-- Menús (Colgados directamente del submenú de Impuestos en Contabilidad) -->
         <menuitem id="menu_l10n_ve_islr_concept"
                   name="Conceptos de ISLR (VE)"
-                  parent="account.account_management_menu"
+                  parent="account.menu_action_tax_form"
                   action="action_l10n_ve_islr_concept"
-                  sequence="90"/>
+                  sequence="25"/>
     </data>
 </odoo>
