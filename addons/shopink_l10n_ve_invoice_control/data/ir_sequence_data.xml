@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <!-- Secuencia oficial para los números de control de facturas de clientes -->
+<odoo noupdate="1">
+    <!-- Secuencia oficial para los números de control de facturas de clientes en Odoo 19 -->
     <record id="sequence_l10n_ve_control_number" model="ir.sequence">
         <name>Secuencia Número de Control Venezuela</name>
         <field name="code">l10n_ve.control.number</field>
