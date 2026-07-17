@@ -7,7 +7,9 @@
     'author': 'Shopink',
     'depends': ['sale', 'account', 'shopink_l10n_ve_invoice_control'],
     'data': [
+        'security/ir.model.access.csv',
         'views/sale_order_views.xml',
+        'wizard/sale_commercial_report_wizard_views.xml', # Añade esta línea
     ],
     'installable': True,
     'auto_install': False,
