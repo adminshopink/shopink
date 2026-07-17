@@ -1,0 +1,6 @@
+id,sequence,name,country_id:id,tax_payable_account_id:id,tax_receivable_account_id:id,tax_base_account_id:id
+tax_group_iva_0pct,10,IVA 0%,base.ve,,,
+tax_group_iva_8pct,10,IVA 8%,base.ve,acc_210202,acc_110502,
+tax_group_iva_16pct,10,IVA 16%,base.ve,acc_210201,acc_110501,
+tax_group_iva_31pct,10,IVA 31%,base.ve,acc_210203,acc_110503,
+tax_group_igtf,10,IGTF,base.ve,acc_210204,,
