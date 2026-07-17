@@ -8,7 +8,7 @@
     'license': 'LGPL-3',
     'depends': [
         'sale',
-        'shopink_l10n_ve_contacts',
+        'shopink_l10n_ve_partner',
     ],
     'data': [
         'report/sale_report_templates.xml',  # <-- Registramos el archivo del reporte
