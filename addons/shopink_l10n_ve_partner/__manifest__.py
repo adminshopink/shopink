@@ -9,6 +9,7 @@
     'depends': [
         'base',
         'contacts',
+        'web_studio',  # <--- Esto fuerza la instalación técnica de Odoo Studio
     ],
     'data': [],
     'installable': True,
