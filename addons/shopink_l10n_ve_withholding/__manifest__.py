@@ -7,9 +7,10 @@
     'author': 'Shopink',
     'depends': ['account', 'web_studio', 'shopink_l10n_ve_partner'],
     'data': [
-        'security/ir.model.access.csv',
+        # Seguridad (si aplica ir.model.access.csv para el wizard)
+        'wizard/account_move_confirmation_views.xml', # <-- Primero el Wizard
         'views/l10n_ve_islr_concept_views.xml',
-        'views/account_move_views.xml',
+        'views/account_move_views.xml',               # <-- Después la herencia de la factura
     ],
     'installable': True,
     'application': False,
