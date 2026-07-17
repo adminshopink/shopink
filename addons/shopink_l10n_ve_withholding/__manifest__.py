@@ -8,6 +8,8 @@
     'depends': ['account', 'web_studio', 'shopink_l10n_ve_partner'],
     'data': [
         'security/ir.model.access.csv',
+        'views/l10n_ve_islr_concept_views.xml',
+        'views/account_move_views.xml',
     ],
     'installable': True,
     'application': False,
