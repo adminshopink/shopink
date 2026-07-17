@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api, TransientModel # <-- Importa TransientModel aquí
+from odoo import models, fields, api  # Aquí mantenemos los normales
+
+# La forma correcta de importar TransientModel es esta:
+from odoo.models import TransientModel 
 
 class AccountMoveConfirmationWizard(TransientModel):
     _name = 'account.move.confirmation.wizard'
