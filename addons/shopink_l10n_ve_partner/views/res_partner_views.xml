@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_inherit_l10n_ve" model="ir.ui.view">
+        <name>res.partner.form.inherit.l10n.ve</name>
+        <model>res.partner</model>
+        <inherit_id ref="base.view_partner_form"/>
+        <arch type="xml">
+            <!-- Posicionamos los campos fiscales venezolanos justo debajo del tipo de compañía / nombre comercial o identificación nativa -->
+            <xpath expr="//field[@name='vat']" position="before">
+                <field name="l10n_ve_person_type" widget="radio" options="{'horizontal': true}" class="oe_inline"/>
+                <field name="l10n_ve_rif" placeholder="Ej: J-40068331-9 o solo los números" string="RIF / Cédula (VE)"/>
+                <field name="l10n_ve_taxpayer_type" widget="priority" string="Tipo Contribuyente"/>
+            </xpath>
+        </arch>
+    </record>
+</odoo>
