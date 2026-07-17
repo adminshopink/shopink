@@ -1,6 +1,0 @@
-﻿Secuencia;Nombre;País;Cuenta por pagar de impuestos;Cuenta por cobrar de impuestos;Cuenta avanzada de impuestos
-10;IVA 0%;Venezuela;;;
-10;IVA 8%;Venezuela;210202 IVA DEBITO FISCAL (REDUCIDO 8%);110502 IVA CREDITO FISCAL (REDUCIDO 8%);
-10;IVA 16%;Venezuela;210201 IVA DEBITO FISCAL (16%);110501 IVA CREDITO FISCAL (16%);
-10;IVA 31%;Venezuela;210203 IVA DEBITO FISCAL (SUNTUARIO 31%);110503 IVA CREDITO FISCAL (SUNTUARIO 31%);
-10;IGTF;Venezuela;210204 IGTF POR ENTERAR (3%);;
