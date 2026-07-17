@@ -7,7 +7,7 @@
     'author': 'Shopink',
     'depends': ['account', 'web_studio', 'shopink_l10n_ve_partner'],
     'data': [
-        'security/ir.model.access.csv', # <-- Agregado aquí
+        #'security/ir.model.access.csv', # <-- Agregado aquí
         'wizard/account_move_confirmation_views.xml',
         'views/l10n_ve_islr_concept_views.xml',
         'views/account_move_views.xml',
