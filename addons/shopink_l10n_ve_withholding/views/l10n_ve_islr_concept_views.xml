@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de Lista (Tree) -->
+        <record id="view_l10n_ve_islr_concept_tree" model="ir.ui.view">
+            <field name="name">l10n_ve.islr.concept.tree</field>
+            <field name="model">l10n_ve.islr.concept</field>
+            <field name="arch" type="xml">
+                <tree string="Conceptos de Retención de ISLR">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="person_type"/>
+                    <field name="withholding_percentage"/>
+                    <field name="subtracting_ut"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista de Formulario (Form) -->
+        <record id="view_l10n_ve_islr_concept_form" model="ir.ui.view">
+            <field name="name">l10n_ve.islr.concept.form</field>
+            <field name="model">l10n_ve.islr.concept</field>
+            <field name="arch" type="xml">
+                <form string="Concepto de Retención de ISLR">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code"/>
+                                <field name="name"/>
+                                <field name="person_type"/>
+                            </group>
+                            <group>
+                                <field name="withholding_percentage"/>
+                                <field name="subtracting_ut"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Acción de Ventana -->
+        <record id="action_l10n_ve_islr_concept" model="ir.ui.view">
+            <field name="name">action.l10n_ve.islr.concept</field>
+            <field name="model">ir.actions.act_window</field>
+            <field name="res_model">l10n_ve.islr.concept</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crea el primer concepto de retención de ISLR según el clasificador del SENIAT.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menús (Colgados de la configuración de Contabilidad) -->
+        <menuitem id="menu_l10n_ve_islr_concept"
+                  name="Conceptos de ISLR (VE)"
+                  parent="account.account_management_menu"
+                  action="action_l10n_ve_islr_concept"
+                  sequence="90"/>
+    </data>
+</odoo>
