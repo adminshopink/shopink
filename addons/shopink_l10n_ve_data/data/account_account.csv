@@ -1,0 +1,101 @@
+id,code,name,user_type_id:id,reconcile
+acc_101000,101000,ACTIVOS CORRIENTES,account.data_account_type_current_assets,False
+acc_101300,101300,CUENTAS POR COBRAR (PDV),account.data_account_type_receivable,True
+acc_101401,101401,BANCO,account.data_account_type_liquidity,False
+acc_101402,101402,CUENTA TRANSITORIA,account.data_account_type_current_assets,False
+acc_101403,101403,RECIBOS PENDIENTES,account.data_account_type_current_assets,True
+acc_101404,101404,PAGOS PENDIENTES,account.data_account_type_current_assets,True
+acc_101701,101701,TRANSFERENCIA DE LIQUIDEZ,account.data_account_type_current_assets,True
+acc_110100,110100,VALORACIÓN DE EXISTENCIAS,account.data_account_type_current_assets,False
+acc_110101,110101,CAJA PRINCIPAL BS,account.data_account_type_liquidity,True
+acc_110102,110102,BANCO NACIONAL BS,account.data_account_type_liquidity,True
+acc_11010210,11010210,BANCO PROVINCIAL # 167089,account.data_account_type_liquidity,False
+acc_11010220,11010220,BANCO BANESCO # 1006336,account.data_account_type_liquidity,False
+acc_11010230,11010230,BANCO MERCANTIL # 8654933,account.data_account_type_liquidity,False
+acc_11010240,11010240,BANCO BICENTENARIO # 1415829,account.data_account_type_liquidity,False
+acc_11010250,11010250,BANCO DE VENEZUELA,account.data_account_type_liquidity,False
+acc_11010260,11010260,BANCO NACIONAL DE CREDITO,account.data_account_type_liquidity,False
+acc_11010270,11010270,BANCO BANESCO R #007433,account.data_account_type_liquidity,False
+acc_11010271,11010271,BANCO PROVINCIAL R #137015,account.data_account_type_liquidity,False
+acc_110103,110103,BANCOS EN EL EXTERIOR,account.data_account_type_liquidity,True
+acc_11010310,11010310,BANCO PROVINCIAL USD #446887,account.data_account_type_liquidity,False
+acc_11010320,11010320,BANCO BANESCO USD,account.data_account_type_liquidity,False
+acc_11010330,11010330,CUENTA ZELLE USD,account.data_account_type_liquidity,False
+acc_110104,110104,PAGOS PENDIENTES POR CONCILIAR,account.data_account_type_current_assets,True
+acc_110105,110105,TARJETAS POR COBRAR (PUNTO DE VENTA),account.data_account_type_current_assets,True
+acc_110106,110106,CAJA PRINCIPAL USD,account.data_account_type_liquidity,True
+acc_110301,110301,CLIENTES NACIONALES BS,account.data_account_type_receivable,True
+acc_110302,110302,CLIENTES NACIONALES USD,account.data_account_type_receivable,True
+acc_110303,110303,ANTICIPOS A PROVEEDORES BS,account.data_account_type_current_assets,True
+acc_110304,110304,ANTICIPOS A PROVEEDORES USD,account.data_account_type_current_assets,True
+acc_110400,110400,COSTO DE PRODUCCIÓN,account.data_account_type_current_assets,True
+acc_110500,110500,TRABAJO EN CURSO,account.data_account_type_current_assets,True
+acc_110501,110501,IVA CREDITO FISCAL (16%),account.data_account_type_current_assets,True
+acc_110502,110502,IVA CREDITO FISCAL (REDUCIDO 8%),account.data_account_type_current_assets,True
+acc_110503,110503,IVA CREDITO FISCAL (SUNTUARIO 31%),account.data_account_type_current_assets,True
+acc_110504,110504,RETENCIONES DE IVA ACUMULADAS,account.data_account_type_current_assets,True
+acc_110505,110505,RETENCIONES DE ISLR ACUMULADAS,account.data_account_type_current_assets,True
+acc_110506,110506,RETENCIONES MUNICIPALES ACUMULADAS,account.data_account_type_current_assets,True
+acc_121000,121000,CUENTA POR COBRAR,account.data_account_type_receivable,True
+acc_121100,121100,PRODUCTOS A RECIBIR,account.data_account_type_current_assets,True
+acc_122000,122000,CUENTA CORRIENTE DEL PROPIETARIO,account.data_account_type_receivable,True
+acc_128000,128000,GASTOS PREPAGADOS,account.data_account_type_current_assets,False
+acc_131000,131000,IMPUESTO PAGADO,account.data_account_type_current_assets,False
+acc_132000,132000,IMPUESTO POR COBRAR,account.data_account_type_receivable,True
+acc_141000,141000,PREPAGOS,account.data_account_type_prepayments,False
+acc_151000,151000,ACTIVO FIJO,account.data_account_type_fixed_assets,False
+acc_191000,191000,ACTIVOS NO CIRCULANTES,account.data_account_type_non_current_assets,False
+acc_201000,201000,PASIVOS CORRIENTES,account.data_account_type_current_liabilities,False
+acc_201100,201100,TARJETA DE CRÉDITO,account.data_account_type_credit_card,False
+acc_210101,210101,PROVEEDORES NACIONALES BS,account.data_account_type_payable,True
+acc_210102,210102,ANTICIPOS DE CLIENTES BS,account.data_account_type_current_liabilities,True
+acc_210103,210103,ANTICIPOS DE CLIENTES USD,account.data_account_type_current_liabilities,True
+acc_210201,210201,IVA DEBITO FISCAL (16%),account.data_account_type_current_liabilities,True
+acc_210202,210202,IVA DEBITO FISCAL (REDUCIDO 8%),account.data_account_type_current_liabilities,True
+acc_210203,210203,IVA DEBITO FISCAL (SUNTUARIO 31%),account.data_account_type_current_liabilities,True
+acc_210204,210204,IGTF POR ENTERAR (3%),account.data_account_type_current_liabilities,True
+acc_210205,210205,RETENCIONES IVA POR ENTERAR,account.data_account_type_current_liabilities,True
+acc_210206,210206,RETENCIONES ISLR - HONORARIOS,account.data_account_type_current_liabilities,True
+acc_210207,210207,RETENCIONES ISLR - SERVICIOS,account.data_account_type_current_liabilities,True
+acc_210208,210208,CONTRIBUCION ESPECIAL DE PENSIONES,account.data_account_type_current_liabilities,True
+acc_210209,210209,RETENCIONES MUNICIPALES POR PAGAR,account.data_account_type_current_liabilities,True
+acc_211000,211000,CUENTA POR PAGAR,account.data_account_type_payable,True
+acc_211100,211100,FACTURAS POR COBRAR,account.data_account_type_current_liabilities,True
+acc_212000,212000,INGRESOS DIFERIDOS,account.data_account_type_current_liabilities,False
+acc_230000,230000,SUELDO POR PAGAR,account.data_account_type_current_liabilities,True
+acc_230100,230100,IMPUESTOS DE NÓMINA DEL EMPLEADO,account.data_account_type_current_liabilities,True
+acc_230200,230200,IMPUESTO DE NÓMINA DEL EMPLEADOR,account.data_account_type_current_liabilities,True
+acc_251000,251000,IMPUESTO RECIBIDO,account.data_account_type_current_liabilities,False
+acc_252000,252000,IMPUESTO POR PAGAR,account.data_account_type_payable,True
+acc_291000,291000,PASIVOS NO CIRCULANTES,,False
+acc_301000,301000,CAPITAL,account.data_account_type_equity,False
+acc_302000,302000,DIVIDENDOS,account.data_account_type_equity,False
+acc_310101,310101,CAPITAL SOCIAL,account.data_account_type_equity,False
+acc_310102,310102,RESULTADOS ACUMULADOS,account.data_account_type_equity,False
+acc_310103,310103,RESULTADO DEL EJERCICIO,account.data_account_type_equity,False
+acc_400000,400000,VENTA DE PRODUCTOS,account.data_account_type_revenue,False
+acc_400001,400001,VENTA DE SERVICIOS,account.data_account_type_revenue,False
+acc_410101,410101,VENTAS NACIONALES (GRAVADAS),account.data_account_type_revenue,False
+acc_410102,410102,VENTAS EXENTAS / EXONERADAS,account.data_account_type_revenue,False
+acc_410103,410103,GANANCIA POR DIFERENCIAL CAMBIARIO,account.data_account_type_revenue,False
+acc_441000,441000,GANANCIA POR TIPO DE CAMBIO,account.data_account_type_revenue,False
+acc_442000,442000,GANANCIA POR DIFERENCIA DE EFECTIVO,account.data_account_type_revenue,False
+acc_443000,443000,PÉRDIDA POR DIFERENCIA DE EFECTIVO,account.data_account_type_expenses,False
+acc_450000,450000,OTRO INGRESO,account.data_account_type_other_income,False
+acc_500000,500000,COSTO DE BIENES VENDIDOS,account.data_account_type_direct_costs,False
+acc_510101,510101,COMPRAS NACIONALES (GRAVADAS),account.data_account_type_expenses,False
+acc_510102,510102,PERDIDA POR DIFERENCIAL CAMBIARIO,account.data_account_type_expenses,False
+acc_510103,510103,GASTOS BANCARIOS E IGTF BANCARIO,account.data_account_type_expenses,False
+acc_600000,600000,GASTOS,account.data_account_type_expenses,False
+acc_610000,610000,VARIACIÓN DEL INVENTARIO,account.data_account_type_expenses,False
+acc_611000,611000,COMPRA DE EQUIPO,account.data_account_type_expenses,False
+acc_612000,612000,RENTA,account.data_account_type_expenses,False
+acc_620000,620000,COMISIONES BANCARIAS,account.data_account_type_expenses,False
+acc_630000,630000,GASTOS DE SUELDO,account.data_account_type_expenses,False
+acc_641000,641000,PÉRDIDA POR TIPO DE CAMBIO,account.data_account_type_expenses,False
+acc_642000,642000,PÉRDIDA POR DIFERENCIA DE EFECTIVO,account.data_account_type_expenses,False
+acc_643000,643000,GANANCIA POR DESCUENTO DE EFECTIVO,account.data_account_type_revenue,False
+acc_961000,961000,GASTOS DE I+D,account.data_account_type_expenses,False
+acc_962000,962000,GASTOS DE SALARIO,account.data_account_type_expenses,False
+acc_999998,999998,GANANCIAS RETENIDAS ACUMULADAS,account.data_account_type_current_year_earnings,False
+acc_999999,999999,ASIGNACIÓN DE GANANCIAS O PÉRDIDAS,account.data_account_type_current_year_earnings,False
