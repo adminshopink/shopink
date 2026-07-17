@@ -6,7 +6,9 @@
     'category': 'Accounting/Localizations',
     'author': 'Shopink',
     'depends': ['account', 'web_studio', 'shopink_l10n_ve_partner', 'shopink_l10n_ve_withholding'],
-    'data': [], # Mantenemos vacío para configurar el Wizard con Studio en producción
+    'data': [
+        'security/ir.model.access.csv',
+    ],
     'installable': True,
     'application': False,
     'license': 'LGPL-3',
