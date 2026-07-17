@@ -1,39 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Heredamos el formulario para agregar el Botón de Pago Comercial -->
-    <record id="view_order_form_inherit_commercial_payment" model="ir.ui.view">
-        <name>sale.order.form.inherit.commercial.payment</name>
-        <model>sale.order</model>
-        <inherit_id ref="sale.view_order_form"/>
-        <arch type="xml">
-            <xpath expr="//header" position="inside">
-                <button name="action_register_commercial_payment" 
-                        string="Registrar Pago Comercial" 
-                        type="object" 
-                        class="oe_highlight" 
-                        invisible="state not in ('sale', 'done') or commercial_payment_state == 'paid'"/>
-            </xpath>
-            <xpath expr="//field[@name='payment_term_id']" position="after">
-                <field name="commercial_payment_state" widget="badge" 
-                       decoration-success="commercial_payment_state == 'paid'" 
-                       decoration-info="commercial_payment_state == 'partial'" 
-                       decoration-warning="commercial_payment_state == 'unpaid'"/>
-            </xpath>
-        </arch>
-    </record>
+    <data>
+        <!-- Heredamos el formulario para agregar el Botón de Pago Comercial y de WhatsApp -->
+        <record id="view_order_form_inherit_commercial_payment" model="ir.ui.view">
+            <name>sale.order.form.inherit.commercial.payment</name>
+            <model>sale.order</model>
+            <inherit_id ref="sale.view_order_form"/>
+            <arch type="xml">
+                <xpath expr="//header" position="inside">
+                    <!-- Botón para Enviar Cotización por WhatsApp -->
+                    <button name="action_send_sale_order_whatsapp" 
+                            string="Enviar por WhatsApp" 
+                            type="object" 
+                            class="btn-success" 
+                            icon="fa-whatsapp"/>
 
-    <!-- Heredamos la vista de lista con el badge para los reportes -->
-    <record id="view_order_tree_inherit_commercial_payment" model="ir.ui.view">
-        <name>sale.order.tree.inherit.commercial.payment</name>
-        <model>sale.order</model>
-        <inherit_id ref="sale.view_order_tree"/>
-        <arch type="xml">
-            <xpath expr="//field[@name='invoice_status']" position="after">
-                <field name="commercial_payment_state" widget="badge" 
-                       decoration-success="commercial_payment_state == 'paid'" 
-                       decoration-info="commercial_payment_state == 'partial'" 
-                       decoration-warning="commercial_payment_state == 'unpaid'"/>
-            </xpath>
-        </arch>
-    </record>
+                    <!-- Botón de Registrar Pago Comercial -->
+                    <button name="action_register_commercial_payment" 
+                            string="Registrar Pago Comercial" 
+                            type="object" 
+                            class="oe_highlight" 
+                            invisible="state not in ('sale', 'done') or commercial_payment_state == 'paid'"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="commercial_payment_state" widget="badge" 
+                           decoration-success="commercial_payment_state == 'paid'" 
+                           decoration-info="commercial_payment_state == 'partial'" 
+                           decoration-warning="commercial_payment_state == 'unpaid'"/>
+                </xpath>
+            </arch>
+        </record>
+
+        <!-- Heredamos la vista de lista con el badge para los reportes -->
+        <record id="view_order_tree_inherit_commercial_payment" model="ir.ui.view">
+            <name>sale.order.tree.inherit.commercial.payment</name>
+            <model>sale.order</model>
+            <inherit_id ref="sale.view_order_tree"/>
+            <arch type="xml">
+                <xpath expr="//field[@name='invoice_status']" position="after">
+                    <field name="commercial_payment_state" widget="badge" 
+                           decoration-success="commercial_payment_state == 'paid'" 
+                           decoration-info="commercial_payment_state == 'partial'" 
+                           decoration-warning="commercial_payment_state == 'unpaid'"/>
+                </xpath>
+            </arch>
+        </record>
+    </data>
 </odoo>
